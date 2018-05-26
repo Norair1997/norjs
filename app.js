@@ -25,3 +25,5 @@ document.body.appendChild(div);
 
 
 nor.event("#test", ["click"], [clickFunction]);
+
+nor.event(document.body, ["click"], [clickFunction]);
