@@ -1,0 +1,12 @@
+
+ajax
+	+ method
+	+ callback
+	+ parameters
+add something to dom
+eventlistener
+	+ class support
+	+ id support
+	+ multiple events at once
+fadein
+fadeout 
