@@ -1,8 +1,8 @@
 var nor = {
 	Version: "0.0.1",
 
+	// elem : String like CSS Selector or HTMLElement or HTMLCollection
 	event: function(elem, evt, func) {
-
 		if (!Array.isArray(evt) || !Array.isArray(func) ) {
     		try {
     			throw new Error("Event and Function arguments must be arrays! e.g. nor.event('#test', ['click'], [clickFunction])");
@@ -55,6 +55,7 @@ var nor = {
 
 	// type : String 
 	// config : Javascript Object 
+	// styles : String
 	createObject: function(type, config = {}, styles = "") {
 		var element = document.createElement(type);
 		for (let property in config) {
