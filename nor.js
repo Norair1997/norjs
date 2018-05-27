@@ -1,5 +1,5 @@
 var nor = {
-	Version: "0.0.1",
+	ver: "0.0.2",
 
 	// elem : String like CSS Selector or HTMLElement or HTMLCollection
 	event: function(elem, evt, func) {
