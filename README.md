@@ -4,7 +4,7 @@ A lightweight easy to use Javascript Library to build fast web applications
 
 ## How to install
 
-Just bind it in the <head> or generally before you wanna use it
+Just bind it in the 'head' or generally before you wanna use it
 ```HTML
 <head>
   ...
