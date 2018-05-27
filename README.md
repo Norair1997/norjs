@@ -2,13 +2,14 @@
 
 A lightweight easy to use Javascript Library to build fast web applications
 
-## How to 'install' it? Its super simple
+## How to install
 
 ```HTML
   <script src="nor.js"></script>
 ```
 
-## Events
+## How to use it
+### Events
 ```javascript
 
 // adding a event to an element with an id
@@ -31,7 +32,7 @@ nor.event(myInputs, ["focus", "input", "blur"], [focusFunction, inputFunction, f
 
 ```
 
-## Create HTML Objects
+### Create HTML Objects
 
 ```javascript
 // create a simple HTML Object
@@ -48,7 +49,7 @@ nor.event(myContainer, ["scroll"], [someFunction]);
 document.body.appendChild(myContainer);
 ```
 
-## Ajax Calls (httpRequest)
+### Ajax Calls (httpRequest)
 
 ```javascript
 
