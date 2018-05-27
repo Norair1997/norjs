@@ -1,8 +1,5 @@
 var nor = {
 	Version: "0.0.1",
-	init: function() {
-
-	},
 
 	event: function(elem, evt, func) {
 
