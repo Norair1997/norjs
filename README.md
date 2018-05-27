@@ -2,6 +2,12 @@
 
 A lightweight easy to use Javascript Library to build fast web applications
 
+## How to 'install' it? Its super simple
+
+```HTML
+  <script src="nor.js"></script>
+```
+
 ## Events
 ```javascript
 
