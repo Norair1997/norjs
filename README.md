@@ -2,6 +2,8 @@
 
 A lightweight (~1.4KB) easy to use Javascript Library to build fast web applications
 
+Support: (IE 10+, Firefox 3.5+, Chrome 7+, Safari 5+, Opera 12.1+) 
+
 ## How to install
 
 Just bind it in the 'head' or generally before you wanna use it
