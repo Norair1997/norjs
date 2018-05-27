@@ -1,9 +1,14 @@
+Planed features
+
 
 ajax
 	+ method
 	+ callback
 	+ parameters
 add something to dom
+	+ creating objects
+	+ parenting / setting child
+	+ attributes,class,styles
 eventlistener
 	+ class support
 	+ id support
