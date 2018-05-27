@@ -40,6 +40,24 @@ var myContainer = nor.createObject("div", {id: "main-container",
                                           
 nor.event(myContainer, ["scroll"], [someFunction]);
 document.body.appendChild(myContainer);
-
-
 ```
+
+## Ajax Calls (httpRequest)
+
+```javascript
+
+// make a GET call and see what it returns 
+nor.request("http://localhost/somephpFileorSomethingElse.txt", success, "GET");
+function success(result) {
+  console.log(result); // <- result = (request.responseText)
+}
+
+// you can send parameters too
+nor.request("http://localhost/getUserData.php", iGotTheUser, "POST", "userId="+userId);
+function iGotTheUser(user) {
+  // do something with user e.g.
+  // var myUser = JSON.parse(user);
+}
+```
+
+
