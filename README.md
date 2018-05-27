@@ -46,12 +46,12 @@ nor.event([myInputs], ["focus", "input", "blur"], [focusFunction, inputFunction,
 
 The event function returns the object it attaches events to.
 ```javascript
-var myDiv = nor.event("#someId", ["click"], [clickFunction]);
+var myDiv = nor.event(["#someId"], ["click"], [clickFunction]);
 myDiv.style.color = "red";
 // do stuff with myDiv
 
 
-var myButtons = nor.event(".button", ["click"], [clickFunction]);
+var myButtons = nor.event([".button", "#special-btn"], ["click"], [clickFunction]);
 // myButtons[] <- Collection of the objects
 ```
 
@@ -63,15 +63,16 @@ var myBigTitle = nor.createObject("h1", {textContent: "An awesome title"});
 
 // ...lets make it a little bit complex
 var myContainer = nor.createObject("div", {id: "main-container", 
-                                          class: "container flex", 
+                                          className: "container flex", 
                                           'data-somedata':12,
                                           child: myBigTitle, // this is our title we created before
-                                          parent: document.body
-                                          }, "background-color:red;color:yellow");
+                                          parent: document.body,
+                                          style:  "background-color:red;color:yellow"
+                                          });
                                           
 var subTitle = nor.createObject("h2", {textContent: "A subtitle", parent: myContainer});   
 
-nor.event(myContainer, ["scroll"], [someFunction]);
+nor.event([myContainer], ["scroll"], [someFunction]);
 
 // this results in such a DOM =>
 ```
