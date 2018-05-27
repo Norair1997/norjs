@@ -36,6 +36,17 @@ nor.event(myInputs, ["focus", "input", "blur"], [focusFunction, inputFunction, f
 
 ```
 
+The event function returns the object it attaches events to.
+```javascript
+var myDiv = nor.event("#someId", ["click"], [clickFunction]);
+myDiv.style.color = "red";
+// do stuff with myDiv
+
+
+var myButtons = nor.event(".button", ["click"], [clickFunction]);
+// myButtons[] <- Collection of the objects
+```
+
 ### Create HTML Objects
 
 ```javascript
