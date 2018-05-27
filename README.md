@@ -2,7 +2,7 @@
 
 A lightweight (~1.3KB) easy to use Javascript Library to build fast web applications
 
-Support: (IE 10+, Firefox 3.5+, Chrome 7+, Safari 5+, Opera 12.1+) 
+Support: (IE 10+, Firefox 3.6+, Chrome 8+, Safari 5.1+, Opera 12.1+) 
 
 ## How to install
 
