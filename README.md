@@ -4,8 +4,12 @@ A lightweight easy to use Javascript Library to build fast web applications
 
 ## How to install
 
+Just bind it in the <head> or generally before you wanna use it
 ```HTML
+<head>
+  ...
   <script src="nor.js"></script>
+</head>
 ```
 
 ## How to use it
