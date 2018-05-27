@@ -19,22 +19,28 @@ Just bind it in the 'head' or generally before you wanna use it
 ```javascript
 
 // adding a event to an element with an id
-nor.event("#someId", ["click"], [clickFunction]);
+nor.event(["#someId"], ["click"], [clickFunction]);
 
 // adding multiple functions with multiple triggers
-nor.event("#someId", ["mouseenter", "click"], [someFunction, clickFunction]);
+nor.event(["#someId"], ["mouseenter", "click"], [someFunction, clickFunction]);
 
 // it works also with ".classes"
-nor.event(".button", ["mouseenter", "click"], [someFunction, clickFunction]);
+nor.event([".button"], ["mouseenter", "click"], [someFunction, clickFunction]);
 
 // and HTML Elements
-nor.event(document, ["DOMContentLoaded"], [init]);
+nor.event([document], ["DOMContentLoaded"], [init]);
+
+// attach to multiple object the same events and triggers
+nor.event([".button", "#myDiv"], ["click", "mouseleave"], [someFunction, mouseLeaveFunction]);
 
 // or with a Collection of HTML Elements  (anonymous functions work too)
 var myInputs = document.getElementsByTagName("input");
-nor.event(myInputs, ["focus", "input", "blur"], [focusFunction, inputFunction, function(e) {
-  // do something when the input element loses focus
+nor.event([myInputs], ["focus", "input", "blur"], [focusFunction, inputFunction, function(e) {
+    // do something when the input element loses focus
+    console.log("focus loss");
 }]);
+
+
 
 ```
 
@@ -93,6 +99,33 @@ function iGotTheUser(user) {
   // var myUser = JSON.parse(user);
 }
 ```
+
+### Overview
+
+## nor.event([], [], []);
+```javascript
+var arrayOfSelector = [".someclass", "#someId", document.body, document.links, ...];
+var arrayOfTriggers = ["click", "scroll", "mouseenter", "keydown", ...];
+var arrayOfFunctions = [someClickFunction1, function(){}, mouseEnterFunc, keyPressedFunc, ...];
+
+var selectedElements = nor.event(arrayOfSelector, arrayOfTriggers, arrayOfFunctions);
+
+// Extra feature: It returns the selected objects in an array
+``` 
+## nor.createObject("", {});
+```javascript
+var myTitle = nor.createObject("h1", {textContent: "An awesome title",
+                                      className: "foo bar",
+                                      style: "color:#4a4; font-size:18px",
+                                      parent: document.body});
+// the order of the attributes doesn't matter
+``` 
+## nor.request("", (), "", "");
+```javascript
+This will be changed in the near future
+TODO
+``` 
+
 
 MIT License
 
