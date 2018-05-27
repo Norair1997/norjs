@@ -8,7 +8,7 @@
 ## Changed
 
 - nor.createObject(type, config)
--- The <style> attribute can be written inside the config object
+-- The <style> attribute can be set inside the config object
 
 - Pass an array of selectors like =>
 ```javascript
