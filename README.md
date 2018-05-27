@@ -41,13 +41,12 @@ nor.event(myInputs, ["focus", "input", "blur"], [focusFunction, inputFunction, f
 ```javascript
 // create a simple HTML Object
 var myBigTitle = nor.createObject("h1", {textContent: "An awesome title"});
-~~document.body.appendChild(myBigTitle);~~
 
 // ...lets make it a little bit complex
 var myContainer = nor.createObject("div", {id: "main-container", 
                                           class: "container flex", 
                                           'data-somedata':12,
-                                          child: myBigTitle,
+                                          child: myBigTitle, // this is our title we created before
                                           parent: document.body
                                           }, "background-color:red;color:yellow");
                                           
