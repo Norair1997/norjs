@@ -5,7 +5,7 @@ var nor = {
 	event: function(elem, evt, func) {
 		if (!Array.isArray(evt) || !Array.isArray(func) ) {
     		try {
-    			throw new Error("Event and Function arguments must be arrays! e.g. nor.event('#test', ['click'], [clickFunction])");
+    			throw new Error("Event and Function arguments must be arrays");
     		} catch(e) {
     			console.log(e);
     		}
