@@ -1,6 +1,6 @@
 # norjs
 
-A lightweight easy to use Javascript Library to build fast web applications
+A lightweight (~1.4KB) easy to use Javascript Library to build fast web applications
 
 ## How to install
 
