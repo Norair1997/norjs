@@ -12,6 +12,8 @@ add something to dom
 eventlistener
 	+ class support
 	+ id support
+	+ html element
+	+ html collection
+	+ multiple selectores
+	+ multiple triggers at once
 	+ multiple events at once
-fadein
-fadeout 
