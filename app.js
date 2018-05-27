@@ -18,7 +18,7 @@ function sendFunction() {
 	}
 }
 
-let div = nor.createObject("div", { "id": "asd", "className": "sdfgsdf", "innerHTML": "Hello World!" });
+let div = nor.createObject("div", {id: "asd", class: "btn-class another", textContent: "Hello World!", "data-something": "45"}, "background-color: red; color: blue");
 
 nor.event(div, ["click"], [clickFunction]);
 document.body.appendChild(div);
@@ -26,4 +26,10 @@ document.body.appendChild(div);
 
 nor.event("#test", ["click"], [clickFunction]);
 
-nor.event(document.body, ["click"], [clickFunction]);
+let myTitle = nor.event(nor.createObject("h1", {textContent: div.textContent}), ["click"], [clickFunction]);
+
+nor.event(document.links, ["click"], [clickFunction]);
+
+document.body.appendChild(myTitle);
+
+//nor.event(document.body, ["click"], [clickFunction]);
