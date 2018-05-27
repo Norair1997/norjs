@@ -12,14 +12,14 @@ var nor = {
 		}
 
 		if (elem instanceof HTMLElement || elem instanceof HTMLDocument) {
-			for (var i = evt.length - 1; i >= 0; i--) {
+			for (let i = evt.length - 1; i >= 0; i--) {
 				elem.addEventListener(evt[i], func[i], false);
 			}
 			return elem;
 		}
 		
 		if (elem instanceof HTMLCollection) {
-			for (var i = elem.length - 1; i >= 0; i--) {
+			for (let i = elem.length - 1; i >= 0; i--) {
 				for (let k = evt.length - 1; k >= 0; k--) {
 					elem[i].addEventListener(evt[k], func[k], false);
 				}
@@ -28,7 +28,7 @@ var nor = {
 		}
 		if (elem.charAt(0) == "#") {
 			elem = elem.slice(1);
-			for (var i = evt.length - 1; i >= 0; i--) {
+			for (let i = evt.length - 1; i >= 0; i--) {
 				document.getElementById(elem).addEventListener(evt[i], func[i], false);
 			}
 			return document.getElementById(elem);
@@ -46,7 +46,7 @@ var nor = {
 	},
 
 	request: function(url, callback, method = "GET", parameters) {
-		let request = new XMLHttpRequest();
+		var request = new XMLHttpRequest();
 		request.onload = () => {if (request.status == 200) callback(request.responseText);}
 		request.open(method, url, true);
 		request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
@@ -56,12 +56,12 @@ var nor = {
 	// type : String 
 	// config : Javascript Object 
 	createObject: function(type, config = {}, styles = "") {
-		let element = document.createElement(type);
-		for (var property in config) {
+		var element = document.createElement(type);
+		for (let property in config) {
 		    if (config.hasOwnProperty(property)) {
 		        if (property == "class") {
 		        	const list = config[property].split(" ");
-		        	for (var i = list.length - 1; i >= 0; i--) {   		
+		        	for (let i = list.length - 1; i >= 0; i--) {   		
 				       	element.classList.add(list[i]);
 		        	}
 		        } else if (property.substring(0,4) == "data") {
