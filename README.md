@@ -1,6 +1,6 @@
 # norjs
 
-A lightweight (~1.4KB) easy to use Javascript Library to build fast web applications
+A lightweight (~1.3KB) easy to use Javascript Library to build fast web applications
 
 Support: (IE 10+, Firefox 3.5+, Chrome 7+, Safari 5+, Opera 12.1+) 
 
