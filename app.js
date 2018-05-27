@@ -1,35 +1,40 @@
+// adding a event to an element with an id
+nor.event("#someId", ["click"], [clickFunction]);
 
-nor.event("#test", ["click"], [clickFunction]);
-nor.event(".button", ["click", "mouseenter"], [clickFunction, mouseenterFunction]);
-nor.event("#send-btn", ["click"], [sendFunction]);
+// adding multiple functions with multiple triggers
+nor.event("#someId", ["mouseenter", "click"], [someFunction, clickFunction]);
 
-function clickFunction(e) {
-	console.log("clicked");
+// it works also with ".classes"
+nor.event(".button", ["mouseenter", "click"], [someFunction, clickFunction]);
+
+// and HTML Elements
+nor.event(document, ["DOMContentLoaded"], [init]);
+
+// or with a Collection of HTML Elements  (anonymous functions work too)
+var myInputs = document.getElementsByTagName("input");
+nor.event(myInputs, ["focus", "input", "blur"], [focusFunction, inputFunction, function(e) {
+  // do something when the input element loses focus
+  console.log("focus loss");
+}]);
+
+function clickFunction() {
+	console.log("click function triggerd");
 }
 
-function mouseenterFunction() {
-	console.log("mouseentered");
+
+function someFunction() {
+	console.log("somefunction triggered");
 }
 
-function sendFunction() {
-	nor.request("http://localhost/idee1.txt", success, "POST");
-	function success(result) {
-		console.log(result);
-	}
+function init() {
+	console.log("init triggered");
 }
 
-let div = nor.createObject("div", {id: "asd", class: "btn-class another", textContent: "Hello World!", "data-something": "45"}, "background-color: red; color: blue");
+function focusFunction() {
+	console.log("focusFunction triggered");
+}
 
-nor.event(div, ["click"], [clickFunction]);
-document.body.appendChild(div);
 
-
-nor.event("#test", ["click"], [clickFunction]);
-
-let myTitle = nor.event(nor.createObject("h1", {textContent: div.textContent}), ["click"], [clickFunction]);
-
-nor.event(document.links, ["click"], [clickFunction]);
-
-document.body.appendChild(myTitle);
-
-//nor.event(document.body, ["click"], [clickFunction]);
+function inputFunction() {
+	console.log("inputFunction triggered");
+}

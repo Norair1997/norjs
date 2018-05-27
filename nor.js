@@ -14,7 +14,7 @@ var nor = {
     		}
 		}
 
-		if (elem instanceof HTMLElement) {
+		if (elem instanceof HTMLElement || elem instanceof HTMLDocument) {
 			for (var i = evt.length - 1; i >= 0; i--) {
 				elem.addEventListener(evt[i], func[i], false);
 			}
@@ -29,7 +29,6 @@ var nor = {
 			}
 			return elem;
 		}
-
 		if (elem.charAt(0) == "#") {
 			elem = elem.slice(1);
 			for (var i = evt.length - 1; i >= 0; i--) {
