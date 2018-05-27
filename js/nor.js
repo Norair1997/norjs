@@ -12,15 +12,15 @@ var nor = {
 		}
 
 		if (elem instanceof HTMLElement || elem instanceof HTMLDocument) {
-			for (let i = evt.length - 1; i >= 0; i--) {
+			for (var i = evt.length - 1; i >= 0; i--) {
 				elem.addEventListener(evt[i], func[i], false);
 			}
 			return elem;
 		}
 		
 		if (elem instanceof HTMLCollection) {
-			for (let i = elem.length - 1; i >= 0; i--) {
-				for (let k = evt.length - 1; k >= 0; k--) {
+			for (var i = elem.length - 1; i >= 0; i--) {
+				for (var k = evt.length - 1; k >= 0; k--) {
 					elem[i].addEventListener(evt[k], func[k], false);
 				}
 			}
@@ -28,15 +28,15 @@ var nor = {
 		}
 		if (elem.charAt(0) == "#") {
 			elem = elem.slice(1);
-			for (let i = evt.length - 1; i >= 0; i--) {
+			for (var i = evt.length - 1; i >= 0; i--) {
 				document.getElementById(elem).addEventListener(evt[i], func[i], false);
 			}
 			return document.getElementById(elem);
 		} else if (elem.charAt(0) == ".") {
 			elem = elem.slice(1);
-			let elements = document.getElementsByClassName(elem);
-			for (let i = elements.length - 1; i >= 0; i--) {
-				for (let k = evt.length - 1; k >= 0; k--) {
+			var elements = document.getElementsByClassName(elem);
+			for (var i = elements.length - 1; i >= 0; i--) {
+				for (var k = evt.length - 1; k >= 0; k--) {
 					elements[i].addEventListener(evt[k], func[k], false);
 				}
 				
@@ -58,11 +58,11 @@ var nor = {
 	// styles : String
 	createObject: function(type, config = {}, styles = "") {
 		var element = document.createElement(type);
-		for (let property in config) {
+		for (var property in config) {
 		    if (config.hasOwnProperty(property)) {
 		        if (property == "class") {
-		        	const list = config[property].split(" ");
-		        	for (let i = list.length - 1; i >= 0; i--) {   		
+		        	var list = config[property].split(" ");
+		        	for (var i = list.length - 1; i >= 0; i--) {   		
 				       	element.classList.add(list[i]);
 		        	}
 		        } else if (property.substring(0,4) == "data") {
