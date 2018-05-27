@@ -1,8 +1,8 @@
 # norjs
 
-A lightweight (~1.4KB) easy to use Javascript Library to build fast web applications
+A lightweight (~1.3KB) easy to use Javascript Library to build fast web applications
 
-Support: (IE 10+, Firefox 3.5+, Chrome 7+, Safari 5+, Opera 12.1+) 
+Support: (IE 10+, Firefox 3.6+, Chrome 8+, Safari 5.1+, Opera 12.1+) 
 
 ## How to install
 
@@ -68,13 +68,12 @@ var subTitle = nor.createObject("h2", {textContent: "A subtitle", parent: myCont
 nor.event(myContainer, ["scroll"], [someFunction]);
 
 // this results in such a DOM =>
-
-/*
-* <div id="main-container" class="flex container" data-somedata="12" style="background-color:red;color:yellow">
-*	   <h1>An awesome title</h1>
-*	   <h2>A subtitle</h2>
-* </div>
-*/
+```
+```HTML
+<div id="main-container" class="flex container" data-somedata="12" style="background-color:red;color:yellow">
+  <h1>An awesome title</h1>
+  <h2>A subtitle</h2>
+</div>
 ```
 
 ### Ajax Calls (httpRequest)
