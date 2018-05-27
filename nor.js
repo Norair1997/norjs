@@ -62,15 +62,19 @@ var nor = {
 		let element = document.createElement(type);
 		for (var property in config) {
 		    if (config.hasOwnProperty(property)) {
-		        element[property] = config[property];
 		        if (property == "class") {
 		        	const list = config[property].split(" ");
 		        	for (var i = list.length - 1; i >= 0; i--) {   		
 				       	element.classList.add(list[i]);
 		        	}
-		        }
-		        if (property.substring(0,4) == "data") {
+		        } else if (property.substring(0,4) == "data") {
 		        	element.setAttribute(property, config[property]);
+		        } else if (property == "parent"){
+		        	config[property].appendChild(element);
+		       	} else if (property == "child"){
+		        	element.appendChild(config[property]);
+		       	} else {
+		       		element[property] = config[property];
 		        }
 		    }
 		}

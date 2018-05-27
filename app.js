@@ -38,3 +38,24 @@ function focusFunction() {
 function inputFunction() {
 	console.log("inputFunction triggered");
 }
+
+var myBigTitle = nor.createObject("h1", {textContent: "An awesome title"});
+
+
+var myContainer = nor.createObject("div", {id: "main-container", 
+                                          class: "container flex", 
+                                          'data-somedata':12,
+                                          child: myBigTitle,
+                                          parent: document.body
+                                          }, "background-color:red;color:yellow");
+
+var subTitle = nor.createObject("h2", {textContent: "A subtitle", parent: myContainer});
+
+// this results in such a DOM =>
+
+/*
+* <div id="main-container" class="flex container" data-somedata="12" style="background-color:red;color:yellow">
+*	<h1>An awesome title</h1>
+*	<h2>A subtitle</h2>
+* </div>
+*/
