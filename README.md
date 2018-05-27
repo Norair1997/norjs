@@ -68,13 +68,12 @@ var subTitle = nor.createObject("h2", {textContent: "A subtitle", parent: myCont
 nor.event(myContainer, ["scroll"], [someFunction]);
 
 // this results in such a DOM =>
-
-/*
-* <div id="main-container" class="flex container" data-somedata="12" style="background-color:red;color:yellow">
-*	   <h1>An awesome title</h1>
-*	   <h2>A subtitle</h2>
-* </div>
-*/
+```
+```HTML
+<div id="main-container" class="flex container" data-somedata="12" style="background-color:red;color:yellow">
+  <h1>An awesome title</h1>
+  <h2>A subtitle</h2>
+</div>
 ```
 
 ### Ajax Calls (httpRequest)
