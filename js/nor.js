@@ -1,5 +1,5 @@
 var nor = {
-  ver: "0.0.4",
+  ver: "0.0.5",
 
   curry: function (fn, arity) {
     if (arity == null) arity = fn.length;
@@ -8,15 +8,41 @@ var nor = {
       nor.curry.bind.apply(nor.curry, [undefined, fn, arity].concat(args));
   },
 
-  request: function(url, callback, method, parameters) {
-    if (method == null) method = "GET";
+  request: function(url, config) {
+    var method = "GET", 
+        parameters = "", 
+        callbacks = {"onSuccess": false, "onError": false}
+
+    for (var prop in config) {
+      if (config.hasOwnProperty(prop)) {
+        var value = config[prop];
+
+        if (prop == "method") {
+          method = value;
+        } else if (prop == "onSuccess") {
+          // if the onSuccess is defined set it true
+          callbacks["onSuccess"] = true;
+        } else if (prop == "onError") {
+          callbacks["onError"] = true;
+        } else if (prop == "data") {
+          parameters = value;
+        }
+      }
+    }
+
     var request = new XMLHttpRequest();
     request.onload = function () {
-      if (request.status === 200) callback(request.responseText);
+      // if the dev defined an onSuccess function, we call the callback returning the request Object
+      if (request.status === 200 && callbacks.onSuccess) config.onSuccess(request);
+      // if the dev defined an onError function, we call the callback returning the request Object
+      if ((request.status === 404 || request.status === 500) && callbacks.onError) config.onError(request);
     }
+    
     request.open(method, url, true);
+    
     request.setRequestHeader("Content-Type",
       "application/x-www-form-urlencoded; charset=UTF-8");
+    console.log(parameters);
     request.send(parameters);
   },
 
