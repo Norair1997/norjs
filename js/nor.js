@@ -74,7 +74,7 @@ var nor = {
           typeof child === 'number' ||
           (typeof child === 'string' && child.length)
         ) {
-          element.appendChild(document.createText(String(child)));
+          element.appendChild(document.createTextNode(String(child)));
         } else if (child instanceof Node) {
           element.appendChild(child);
         }
