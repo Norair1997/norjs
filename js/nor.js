@@ -85,6 +85,13 @@ var nor = {
   }
 }
 
+// obj: Object
+nor.dupeObj = function (obj) {
+   var temp = {};
+   for (var key in obj) temp[key] = obj[key];
+   return temp;
+}
+
 // once: boolean
 // target: String|EventTarget|Array
 // type: String|Array
@@ -94,14 +101,22 @@ var nor = {
 nor.eventManager = nor.curry(function (once, target, type, handle, options) {
   if (options == null) options = false;
 
+  if (typeof target !== 'string' && target.length === 1) target = target[0];
   if (typeof target === 'string') {
     target = document.querySelectorAll(target);
     if (target.length === 1) target = target[0];
   }
 
   if (target.length) {
+    var isTypeObj = type.constructor === Object
     for (var i = 0; i < target.length; i++) {
-      target[i] = nor.eventManager(once, target[i], type, handle, options);
+      target[i] = nor.eventManager(
+        once,
+        target[i],
+        isTypeObj ? nor.dupeObj(type) : type,
+        handle,
+        options
+      );
     }
     return target;
   }
@@ -111,48 +126,17 @@ nor.eventManager = nor.curry(function (once, target, type, handle, options) {
   }
 
   if (type.constructor === Object) {
-    for (const name in type) {
+    for (var name in type) {
       type[name] =
         nor.eventManager(once, target, name, type[name], options);
     }
     return type
   }
 
-  if (typeof type === 'string') {
-    if (type.indexOf(',') > -1) type = type.split(',')
-    else if (type.indexOf(' ') > -1) type = type.split(' ')
-  }
-
-  if (Array.isArray(type)) {
-    var isHandleArray = Array.isArray(handle)
-    if (type.length === 1 && isHandleArray && handle.length === 1) {
-      type = type[0];
-      handle = handle[0];
-    } else {
-      var manager = {};
-      if (isHandleArray) {
-        if (handle.length === 1) handle = handle[0];
-        else {
-          for (var i = 0; i < type.length; i++) {
-            manager[type[i]] =
-              nor.eventManager(once, target, type[i], handle[i], options);
-          }
-        }
-      } else {
-        for (var i = 0; i < type.length; i++) {
-          manager[type[i]] =
-          nor.eventManager(once, target, type[i], handle, options);
-        }
-      }
-      return manager;
-    }
-  }
-
-  if (handle == null) {
-    return nor.event.bind(undefined, once, target, type);
-  }
+  if (handle == null) return nor.event.bind(undefined, once, target, type);
 
   var isOn = false;
+
   handle = handle.bind(target);
 
   var handler = function(evt) {
