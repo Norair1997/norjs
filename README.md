@@ -2,7 +2,7 @@
 
 A lightweight (~1.3KB) easy to use Javascript Library to build fast web applications
 
-Support: (IE 10+, Firefox 3.6+, Chrome 8+, Safari 5.1+, Opera 12.1+) 
+Support: (IE 10+, Firefox 3.6+, Chrome 8+, Safari 5.1+, Opera 12.1+)
 
 ## How to install
 
@@ -15,68 +15,98 @@ Just bind it in the 'head' or generally before you wanna use it
 ```
 
 ## How to use it
+
 ### Events
+
 ```javascript
 
 // adding a event to an element with an id
-nor.event(["#someId"], ["click"], [clickFunction]);
+nor.on("#someId", "click", (event, element) => {
+    /* do your thing */
+});
 
 // adding multiple functions with multiple triggers
-nor.event(["#someId"], ["mouseenter", "click"], [someFunction, clickFunction]);
+nor.on("#someId", {mouseenter: someFunction, click: clickFunction});
 
-// it works also with ".classes"
-nor.event([".button"], ["mouseenter", "click"], [someFunction, clickFunction]);
+// target multiple elements with a single event manager
+nor.on([".side-bar", ".toggle-button"], {
+  click (e, btn) {
+    btn.classList.toggle("open");
+  }
+});
 
-// and HTML Elements
-nor.event([document], ["DOMContentLoaded"], [init]);
+// handle an event once and once only
+const newsComponent = document.querySelector('.news-component')
 
-// attach to multiple object the same events and triggers
-nor.event([".button", "#myDiv"], ["click", "mouseleave"], [someFunction, mouseLeaveFunction]);
+nor.once(newsComponent, 'dataLoaded', ({detail: {data}}, el) => {
+  newsComponent.removeSkeleton()
+  newsComponent.populate(data)
+})
 
-// or with a Collection of HTML Elements  (anonymous functions work too)
-var myInputs = document.getElementsByTagName("input");
-nor.event([myInputs], ["focus", "input", "blur"], [focusFunction, inputFunction, function(e) {
-    // do something when the input element loses focus
-    console.log("focus loss");
-}]);
-
-
-
+// emit a custom event after fetching some data using .request and .emit
+nor.request('/news/latest/', data => {
+  nor.emit(newsComponent, 'dataLoaded', {data: JSON.parse(data)})
+})
 ```
 
-The event function returns the object it attaches events to.
+The event function returns a manager/handler object.
 ```javascript
-var myDiv = nor.event(["#someId"], ["click"], [clickFunction]);
-myDiv.style.color = "red";
-// do stuff with myDiv
+var manager = nor.event('#someId', 'click', e => {
+  console.log('ya clicked me! What say you?')
+});
 
+manager.off() // stops listening to events
+manager.on() // start listening again
+manager.once() // listen once and then stop
 
-var myButtons = nor.event([".button", "#special-btn"], ["click"], [clickFunction]);
-// myButtons[] <- Collection of the objects
+// add another listener to the previous listener's target(s)
+nor.once(manager.target, 'i-say', e => {
+  console.log(`I say ${e.detail}`);
+})
+
+// emit a custom event on the target element
+// straight from the event manager
+// .emit(eventName: String, =detail: Any)
+manager.emit(
+  'i-say',
+  'event handling and emitting has never been this easy'
+)
+
+// do stuff with the event's target element
+manager.target.style.color = 'red';
+
 ```
 
 ### Create HTML Objects
 
 ```javascript
-// create a simple HTML Object
-var myBigTitle = nor.createObject("h1", {textContent: "An awesome title"});
+// create a simple HTML Heading 1 Element
+var myBigTitle = nor.createObject("h1", "An awesome title");
 
 // ...lets make it a little bit complex
-var myContainer = nor.createObject("div", {id: "main-container", 
-                                          className: "container flex", 
-                                          'data-somedata':12,
-                                          child: myBigTitle, // this is our title we created before
-                                          parent: document.body,
-                                          style:  "background-color:red;color:yellow"
-                                          });
-                                          
-var subTitle = nor.createObject("h2", {textContent: "A subtitle", parent: myContainer});   
-
-nor.event([myContainer], ["scroll"], [someFunction]);
-
-// this results in such a DOM =>
+var myContainer = nor.createObject("div", {
+  id: "main-container", // set the id
+  className: "container flex", // give it some classes
+  'data-somedata': 12, // add a data attribute
+  parent: document.body, // attach this element to the DOM via document.body
+  style:  "background-color:red;color:yellow" // and some stylistic flair
+  on: { // add some events
+    scroll: smoothScrollingMagicFunction
+  }
+},
+  myBigTitle // this is our title we created before
+);
 ```
-```HTML
+
+Now you may want to dynamically add more child nodes created asynchronously
+```javascript
+setTimeout(() => { // no problem at all
+  nor.createObject("h2", {parent: myContainer}, "A subtitle");
+});
+```
+
+And Voila! In the ``<body>`` you should now see
+```html
 <div id="main-container" class="flex container" data-somedata="12" style="background-color:red;color:yellow">
   <h1>An awesome title</h1>
   <h2>A subtitle</h2>
@@ -87,7 +117,7 @@ nor.event([myContainer], ["scroll"], [someFunction]);
 
 ```javascript
 
-// make a GET call and see what it returns 
+// make a GET call and see what it returns
 nor.request("http://localhost/somephpFileorSomethingElse.txt", success, "GET");
 function success(result) {
   console.log(result); // <- result = (request.responseText)
@@ -103,30 +133,48 @@ function iGotTheUser(user) {
 
 ### Overview
 
-## nor.event([], [], []);
+#### nor.event/on/once(target String|EventTarget|Array, type String|Object, =handle Function, =options Object|Boolean);
 ```javascript
-var arrayOfSelector = [".someclass", "#someId", document.body, document.links, ...];
-var arrayOfTriggers = ["click", "scroll", "mouseenter", "keydown", ...];
-var arrayOfFunctions = [someClickFunction1, function(){}, mouseEnterFunc, keyPressedFunc, ...];
+nor.event(document, 'DOMContentLoaded', e => {/* do something on load */})
 
-var selectedElements = nor.event(arrayOfSelector, arrayOfTriggers, arrayOfFunctions);
+const manager = nor.on('.cards', {
+  animationEnd (event, element) {
+    element.classList.remove('shuffle-effect')
+  }
+})
 
-// Extra feature: It returns the selected objects in an array
-``` 
-## nor.createObject("", {});
+manager.target // <- EventTarget|NodeList|EventTargets[]
+
+if (catastrophyOccurs) {
+  manager.off();
+  Array.from(manager.target).forEach(card => {
+    card.remove();
+  })
+}
+
+if (miracleHappens) {
+  const deck = document.querySelector('.deck')
+  deck.append(...manager.target)
+  manager.on(); // listen again
+}
+```
+#### nor.createObject(tag String, =config Object, ...children String|Node|Array|Function);
 ```javascript
-var myTitle = nor.createObject("h1", {textContent: "An awesome title",
-                                      className: "foo bar",
-                                      style: "color:#4a4; font-size:18px",
-                                      parent: document.body});
-// the order of the attributes doesn't matter
-``` 
-## nor.request("", (), "", "");
+var myTitle = nor.createObject("h1", {
+  className: "foo bar",
+  style: "color:#4a4; font-size:18px",
+  parent: document.body // NOTE: attribute order doesn't matter
+},
+  "An awesome title"
+);
+```
+#### nor.request(url String, callback Function, =method String, =params Any);
 ```javascript
-This will be changed in the near future
-TODO
-``` 
+  // NOTE: The default method is "GET"
+  nor.request('https://imgur.com/random', handleImageDataAndAppendImageToDom);
+```
 
+_____________________________________________
 
 MIT License
 
