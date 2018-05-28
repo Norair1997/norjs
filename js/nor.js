@@ -50,7 +50,6 @@ var nor = {
         }
 
         if (property.substr(4) === "data") {
-          if (property[4] === '-') property = property.substr(1);
           element.setAttribute(property, value);
         } else if (property === "parent") {
           value.appendChild(element);
