@@ -5,7 +5,7 @@ nor.event(["#someId"], ["click"], [clickFunction]);
 nor.event(["#someId"], ["mouseenter", "click"], [someFunction, clickFunction]);
 
 // it works also with ".classes"
-nor.event([".button"], ["mouseenter", "click"], [someFunction, clickFunction]);
+nor.event(".button", "mouseenter click", [someFunction, clickFunction]);
 
 // and HTML Elements
 nor.event([document], ["DOMContentLoaded"], [init]);
@@ -25,7 +25,6 @@ function clickFunction() {
     console.log("click function triggerd");
 }
 
-
 function mouseLeaveFunction() {
     console.log("mouseleave function triggerd");
 }
@@ -42,7 +41,6 @@ function focusFunction() {
     console.log("focusFunction triggered");
 }
 
-
 function inputFunction() {
     console.log("inputFunction triggered");
 }
@@ -50,13 +48,19 @@ function inputFunction() {
 var myBigTitle = nor.createObject("h1", {textContent: "An awesome title"});
 
 
-var myContainer = nor.createObject("div", {id: "main-container", 
-                                          className: "container flex", 
-                                          'data-somedata':12,
-                                          child: myBigTitle,
-                                          parent: document.body,
-                                          style: "background-color:red;color:yellow"
-                                          });
+var myContainer = nor.createObject("div", {
+  id: "main-container",
+  className: "container flex",
+  'data-somedata':12,
+  child: myBigTitle,
+  parent: document.body,
+  style: "background-color:red;color:yellow",
+  once: {
+    click: function () {
+      console.log('one time click');
+    }
+  }
+});
 
 var subTitle = nor.createObject("h2", {textContent: "A subtitle", parent: myContainer});
 
