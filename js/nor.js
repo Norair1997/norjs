@@ -42,7 +42,6 @@ var nor = {
     
     request.setRequestHeader("Content-Type",
       "application/x-www-form-urlencoded; charset=UTF-8");
-    console.log(parameters);
     request.send(parameters);
   },
 
