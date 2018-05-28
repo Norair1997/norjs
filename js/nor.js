@@ -1,7 +1,7 @@
 var nor = {
   ver: "0.0.4",
 
-  curry: function (fn, arity = fn.length) {
+  curry: function (fn, arity) {
     if (arity == null) arity = fn.length;
     var args = Array.prototype.slice.call(arguments, 2);
     return arity <= args.length
