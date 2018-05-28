@@ -45,14 +45,13 @@ function inputFunction() {
     console.log("inputFunction triggered");
 }
 
-var myBigTitle = nor.createObject("h1", {textContent: "An awesome title"});
+var myBigTitle = nor.createObject("h1", "An awesome title");
 
 
 var myContainer = nor.createObject("div", {
   id: "main-container",
   className: "container flex",
   'data-somedata':12,
-  child: myBigTitle,
   parent: document.body,
   style: "background-color:red;color:yellow",
   once: {
@@ -60,9 +59,11 @@ var myContainer = nor.createObject("div", {
       console.log('one time click');
     }
   }
-});
+},
+  myBigTitle
+);
 
-var subTitle = nor.createObject("h2", {textContent: "A subtitle", parent: myContainer});
+var subTitle = nor.createObject("h2", {parent: myContainer}, "A subtitle");
 
 // this results in such a DOM =>
 
